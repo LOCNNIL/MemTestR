@@ -94,7 +94,7 @@ int main(int argc, char **argv){
     time = atoi(argv[3]);
   }
 
-  printf(GREEN "Chosen interval: %d\n" END, time);
+  printf(GREEN "Chosen interval: %d (s)\n" END, time);
 
   memory = value * multipliyer;
   printf(GREEN "Alocating: %d%s\n" END, value, unit);
