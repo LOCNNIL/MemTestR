@@ -12,7 +12,6 @@
 #define BLUE    "\033[94m"
 #define MAGENTA "\033[35m"
 #define CYAN    "\033[36m"
-
 #define END     "\033[0m"
 
 volatile bool shouldExit = false;
