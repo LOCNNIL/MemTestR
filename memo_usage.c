@@ -6,14 +6,22 @@
 #include <stdbool.h>
 #include <time.h>
 
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[94m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+
+#define END     "\033[0m"
 
 volatile bool shouldExit = false;
 
 void print_help(char *name){
-  printf("Usage: %s <size> <unit> <interva>\n\
-          This program runs a loop that alocatates the giving <size> of \n \
+  printf(BLUE " Usage: %s <size> <unit> <interval>  \n\
+          This program runs a loop that alocatates the giving <size> of\n \
           memory considering the giving <unit> (acepted units: B, KB, MB, GB). \n\
-          and keeps alocating and dealocating this memory each <interval> (s)\n", name);
+          and keeps alocating and dealocating this memory each <interval> (s) \n" END, name);
 }
 
 // Signal handler for CTRL+C
@@ -33,7 +41,7 @@ int select_multipliyer(char *unit){
   } else if(strcmp(unit, "GB") == 0){
     return 1024*1024*1024;
   } else {
-    printf("Invalid unit. Suppoted units: B, KB, MB, GB\n");
+    printf(RED "Invalid unit. Suppoted units: B, KB, MB, GB\n" END);
     exit(1);
   }
 }
@@ -43,18 +51,18 @@ void allocation_loop(size_t memory, int interval){
   while(!shouldExit){
     char *ptr = malloc(memory);
 
-    printf("%zu bytes in use... \n", memory);
+    printf(GREEN "%zu bytes in use... \n" END, memory);
     memset(ptr, 'a', memory);
 
     printf("%.4s \n", &ptr[memory-5]);
 
-    printf("Take a nap...\n");
+    printf(GREEN "Take a nap...\n" END);
     sleep(interval);
 
-    printf("Free memory...\n");
+    printf(GREEN "Free memory...\n" END);
     free(ptr);
 
-    printf("Second nap... \n");
+    printf(GREEN "Second nap... \n" END);
     sleep(interval);
   }
 }
@@ -76,23 +84,23 @@ int main(int argc, char **argv){
 
   if (argc > 2){
     unit = argv[2];
-    printf("Chosen multipliyer: %s\n", unit);
+    printf(BLUE "Chosen multipliyer: %s\n" END, unit);
     multipliyer = select_multipliyer(unit);
   } else {
-    printf("No multipliyer selected using default: '%s'\n", unit);
+    printf(YELLOW "No multipliyer selected using default: '%s'\n" END, unit);
   }
 
   if (argc > 3 && atoi(argv[3])){
     time = atoi(argv[3]);
   }
 
-  printf("Chosen interval: %d\n", time);
+  printf(GREEN "Chosen interval: %d\n" END, time);
 
   memory = value * multipliyer;
-  printf("Alocating: %d%s\n", value, unit);
+  printf(GREEN "Alocating: %d%s\n" END, value, unit);
   
   allocation_loop(memory, time);
 
-  printf("Exiting...\n");
+  printf(BLUE "Exiting...\n" END);
   return 0;
 }
