@@ -29,11 +29,11 @@ In the example bellow:
 
 The mem usage tool will operate this way:
 
-1 - It will alloc `10MB` of memory
-2 - Sleep for `15` seconds
-3 - `free` the 10 MB of memory 
-4 - Sleep for `15` seconds 
-5 - Start all over until you press CTRL+C
+1 - It will alloc `10MB` of memory <br>
+2 - Sleep for `15` seconds <br>
+3 - `free` the 10 MB of memory <br>
+4 - Sleep for `15` seconds <br>
+5 - Start all over until you press CTRL+C <br>
 
 The possible units are: 
 
